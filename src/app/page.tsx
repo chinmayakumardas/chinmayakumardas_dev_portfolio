@@ -1,7 +1,22 @@
 "use client";
 import { useState } from "react";
 
-const techStack = [
+type Tech = {
+  name: string;
+  color: string;
+  icon: string;
+};
+
+type Project = {
+  title: string;
+  description: string;
+  link: string;
+  gradient: string;
+  icon: string;
+  tags: string[];
+};
+
+const techStack: Tech[] = [
   { name: "Next.js", color: "from-black to-gray-800", icon: "⚡" },
   { name: "React", color: "from-blue-400 to-blue-600", icon: "⚛️" },
   { name: "Node.js", color: "from-green-400 to-green-600", icon: "🟢" },
@@ -11,40 +26,43 @@ const techStack = [
   { name: "Redis", color: "from-red-400 to-red-600", icon: "💾" },
 ];
 
-const projects = [
+const projects: Project[] = [
   {
     title: "WhatsApp Automation SaaS",
-    description: "Multi-tenant SaaS platform (Microservices + Event-Driven) built on Next.js, Kafka, MongoDB.",
+    description:
+      "Multi-tenant SaaS platform (Microservices + Event-Driven) built on Next.js, Kafka, MongoDB.",
     link: "#",
     gradient: "from-green-400 via-emerald-500 to-teal-600",
     icon: "💬",
-    tags: ["SaaS", "Microservices", "Event-Driven"]
+    tags: ["SaaS", "Microservices", "Event-Driven"],
   },
   {
     title: "Project Management Tool",
-    description: "Role-based platform with Next App Router + Redux Toolkit to manage tasks and teams.",
+    description:
+      "Role-based platform with Next App Router + Redux Toolkit to manage tasks and teams.",
     link: "#",
     gradient: "from-purple-400 via-pink-500 to-red-500",
     icon: "📋",
-    tags: ["Management", "Redux", "Teams"]
+    tags: ["Management", "Redux", "Teams"],
   },
   {
     title: "Hotel Booking UI",
-    description: "Front-end only premium hotel showcasing template using pure Next.js + Tailwind.",
+    description:
+      "Front-end only premium hotel showcasing template using pure Next.js + Tailwind.",
     link: "#",
     gradient: "from-yellow-400 via-orange-500 to-red-500",
     icon: "🏨",
-    tags: ["UI/UX", "Frontend", "Design"]
+    tags: ["UI/UX", "Frontend", "Design"],
   },
 ];
 
 export default function PortfolioPage() {
   const [showMore, setShowMore] = useState(false);
-  const [hoveredTech, setHoveredTech] = useState(null);
+  const [hoveredTech, setHoveredTech] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white overflow-hidden relative">
-      {/* Animated background elements */}
+      {/* Background gradient bubbles */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-pink-400 to-red-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
@@ -78,12 +96,10 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        {/* Tech Stack Section */}
+        {/* Tech Stack */}
         <section className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-4xl font-black mb-12 text-center">
-            <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text">
-              🛠️ Tech Arsenal
-            </span>
+          <h2 className="text-4xl font-black mb-12 text-center bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent bg-clip-text">
+            🛠️ Tech Arsenal
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
             {techStack.map((tech, index) => (
@@ -109,15 +125,13 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        {/* Projects Section */}
+        {/* Projects */}
         <section className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-4xl font-black mb-12 text-center">
-            <span className="bg-gradient-to-r from-emerald-400 to-cyan-500 text-transparent bg-clip-text">
-              🎯 Featured Projects
-            </span>
+          <h2 className="text-4xl font-black mb-12 text-center bg-gradient-to-r from-emerald-400 to-cyan-500 text-transparent bg-clip-text">
+            🎯 Featured Projects
           </h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {(showMore ? projects : projects.slice(0, 2)).map((proj, index) => (
+            {(showMore ? projects : projects.slice(0, 2)).map((proj) => (
               <div
                 key={proj.title}
                 className="group relative rounded-3xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:rotate-1"
@@ -148,11 +162,10 @@ export default function PortfolioPage() {
                     <span className="transform group-hover:translate-x-2 transition-transform duration-300">→</span>
                   </a>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
               </div>
             ))}
           </div>
-          
+
           {projects.length > 2 && (
             <div className="mt-12 text-center">
               <button
@@ -168,14 +181,14 @@ export default function PortfolioPage() {
           )}
         </section>
 
-        {/* Call to Action Section */}
+        {/* Call to Action */}
         <section className="mx-auto max-w-4xl px-6 py-20 text-center">
           <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 rounded-3xl p-12 transform hover:scale-105 transition-all duration-500 shadow-2xl">
             <h2 className="text-4xl font-black mb-6 text-white">
               Ready to Build Something Amazing? 🚀
             </h2>
             <p className="text-xl text-pink-100 mb-8 max-w-2xl mx-auto">
-              Let's collaborate and create the next big thing together. 
+              Lets collaborate and create the next big thing together. 
               Your ideas + My code = Pure Magic! ✨
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
